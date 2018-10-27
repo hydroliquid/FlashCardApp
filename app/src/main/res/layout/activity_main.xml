@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/flashcard_question"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:gravity="center"
+        android:textColor="@color/colorAccent"
+        android:textSize="40sp"
+        android:visibility="visible"
+        tools:text="How much caffine is in a monster?"
+  />
+
+    <TextView
+        android:id="@+id/flashcard_answer"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:gravity="center"
+        android:textColor="#000"
+        android:elevation="10dp"
+        android:textSize="40sp"
+        android:visibility="invisible"
+        tools:text="160mg of Caffine per can." />
+
+    <ImageView
+        android:id="@+id/toggle_choices_visibility"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="14dp"
+        android:src="@drawable/ic_check_mark"
+        android:visibility="visible" />
+
+</RelativeLayout>
