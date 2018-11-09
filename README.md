@@ -8,7 +8,7 @@
 Flashcard application. Show users a question with mutiple answers and allow interaction with answers.
 
 ### App Walk-though
-<img src="https://i.imgur.com/C1xuviB.gif" width=200><br>
+<img src="https://i.imgur.com/SClUO3N.gif" width=200><br>
 
 ## Required
 - [x] Create New Project in Android Studio
