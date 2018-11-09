@@ -42,7 +42,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         answer3.setOnClickListener(this);
         answer3Correct.setOnClickListener(this);
         toggle.setOnClickListener(this);
-        
     }
 
     @Override
@@ -70,9 +69,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.flashcard_anwser:
             {
                 if(answerOn){
-                flashQuest.setVisibility(View.VISIBLE);
-                flashAnswer.setVisibility(View.INVISIBLE);
-                answerOn = false;
+                    flashQuest.setVisibility(View.VISIBLE);
+                    flashAnswer.setVisibility(View.INVISIBLE);
+                    answerOn = false;
                 }
             }
             break;
@@ -195,287 +194,290 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         if(greenOn){
             isShowingAnswers = true;
+        }else{
+            isShowingAnswers = false;
+            greenOn = false;
         }
     }
+
 }
+// Old code
+/*
+((ImageView) findViewById(R.id.toggle_choices_visibility)).setOnClickListener
+        (new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
 
-// old Code
- /*
-        ((ImageView) findViewById(R.id.toggle_choices_visibility)).setOnClickListener
-                (new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if(!isShowingAnswers) {
-                    ((ImageView) findViewById(R.id.toggle_choices_visibility)).setImageResource
-                            (R.drawable.ic_check_mark);
-                    if(!firstQuestion || !secondQuestion) {
-                        findViewById(R.id.flashcard_answer1).setVisibility(View.INVISIBLE);
-                        findViewById(R.id.flashcard_answer2).setVisibility(View.INVISIBLE);
-                        findViewById(R.id.flashcard_answer3).setVisibility(View.INVISIBLE);
-                        if(!firstQuestion || !secondQuestion) {
-                            firstQuestion = false;
-                            secondQuestion = true;
-                        }
-                        else{
-                            firstQuestion = true;
-                            secondQuestion = false;
-                        }
-                    }
-                    else if(firstQuestion || secondQuestion) {
-                        findViewById(R.id.flashcard_answerWrong1).setVisibility(View.INVISIBLE);
-                        findViewById(R.id.flashcard_answerWrong2).setVisibility(View.INVISIBLE);
-                        findViewById(R.id.flashcard_answerCorrect3).setVisibility(View.INVISIBLE);
-                        if(firstQuestion) {
-                            firstQuestion = true;
-                            secondQuestion = false;
-                        }
-                        else{
-                            firstQuestion = false;
-                            secondQuestion = true;
-                        }
-                    }
-                    isShowingAnswers = true;
+        if(!isShowingAnswers) {
+            ((ImageView) findViewById(R.id.toggle_choices_visibility)).setImageResource
+                    (R.drawable.ic_check_mark);
+            if(!firstQuestion || !secondQuestion) {
+                findViewById(R.id.flashcard_answer1).setVisibility(View.INVISIBLE);
+                findViewById(R.id.flashcard_answer2).setVisibility(View.INVISIBLE);
+                findViewById(R.id.flashcard_answer3).setVisibility(View.INVISIBLE);
+                if(!firstQuestion || !secondQuestion) {
+                    firstQuestion = false;
+                    secondQuestion = true;
                 }
-                else {
-                    ((ImageView) findViewById(R.id.toggle_choices_visibility)).setImageResource
-                            (R.drawable.ic_question_mark_circle);
-                    if(!firstQuestion || !secondQuestion) {
-                        findViewById(R.id.flashcard_answer1).setVisibility(View.VISIBLE);
-                        findViewById(R.id.flashcard_answer2).setVisibility(View.VISIBLE);
-                        findViewById(R.id.flashcard_answer3).setVisibility(View.VISIBLE);
-                        if(firstQuestion) {
-                            secondQuestion = true;
-                        }
-                        else{
-                            firstQuestion = true;
-                        }
-                    }
-                    else if(firstQuestion || secondQuestion) {
-                        findViewById(R.id.flashcard_answerWrong1).setVisibility(View.VISIBLE);
-                        findViewById(R.id.flashcard_answerWrong2).setVisibility(View.VISIBLE);
-                        findViewById(R.id.flashcard_answerCorrect3).setVisibility(View.VISIBLE);
-                        if(firstQuestion) {
-                            secondQuestion = false;
-                        }
-                        else{
-                            firstQuestion = false;
-                        }
-                    }
-                    isShowingAnswers = false;
+                else{
+                    firstQuestion = true;
+                    secondQuestion = false;
                 }
             }
-        });
-        // Main Question and Answer
-        flashQuest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
-                if(!answerOn) {
-                    findViewById(R.id.flashcard_anwser).setVisibility(View.VISIBLE);
-
-                    flashQuest.setVisibility(View.INVISIBLE);
-
-                    answerOn = true;
-
+            else if(firstQuestion || secondQuestion) {
+                findViewById(R.id.flashcard_answerWrong1).setVisibility(View.INVISIBLE);
+                findViewById(R.id.flashcard_answerWrong2).setVisibility(View.INVISIBLE);
+                findViewById(R.id.flashcard_answerCorrect3).setVisibility(View.INVISIBLE);
+                if(firstQuestion) {
+                    firstQuestion = true;
+                    secondQuestion = false;
+                }
+                else{
+                    firstQuestion = false;
+                    secondQuestion = true;
                 }
             }
-        });
-        findViewById(R.id.flashcard_anwser).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
-                if(answerOn) {
-                    findViewById(R.id.flashcard_anwser).setVisibility(View.INVISIBLE);
-
-                    flashQuest.setVisibility(View.VISIBLE);
-                    answerOn = false;
+            isShowingAnswers = true;
+        }
+        else {
+            ((ImageView) findViewById(R.id.toggle_choices_visibility)).setImageResource
+                    (R.drawable.ic_question_mark_circle);
+            if(!firstQuestion || !secondQuestion) {
+                findViewById(R.id.flashcard_answer1).setVisibility(View.VISIBLE);
+                findViewById(R.id.flashcard_answer2).setVisibility(View.VISIBLE);
+                findViewById(R.id.flashcard_answer3).setVisibility(View.VISIBLE);
+                if(firstQuestion) {
+                    secondQuestion = true;
+                }
+                else{
+                    firstQuestion = true;
                 }
             }
-        });
-        // End main Question and Answer
-        // Answer 1 button
-        findViewById(R.id.flashcard_answer1).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
-                if(!answerOn) {
-                    findViewById(R.id.flashcard_answer1).setVisibility(View.INVISIBLE);
-                    findViewById(R.id.flashcard_answer3).setVisibility(View.INVISIBLE);
-
-                    findViewById(R.id.flashcard_answerWrong1).setVisibility(View.VISIBLE);
-                    findViewById(R.id.flashcard_answerCorrect3).setVisibility(View.VISIBLE);
-                    if(!firstQuestion) {
-                        secondQuestion = true;
-                    }
-                    else{
-                        firstQuestion = true;
-                    }
-                    answerOn = true;
+            else if(firstQuestion || secondQuestion) {
+                findViewById(R.id.flashcard_answerWrong1).setVisibility(View.VISIBLE);
+                findViewById(R.id.flashcard_answerWrong2).setVisibility(View.VISIBLE);
+                findViewById(R.id.flashcard_answerCorrect3).setVisibility(View.VISIBLE);
+                if(firstQuestion) {
+                    secondQuestion = false;
                 }
-                else if(firstQuestion || secondQuestion) {
-                    findViewById(R.id.flashcard_answer1).setVisibility(View.INVISIBLE);
-                    findViewById(R.id.flashcard_answer3).setVisibility(View.INVISIBLE);
-
-                    findViewById(R.id.flashcard_answerWrong1).setVisibility(View.VISIBLE);
-                    findViewById(R.id.flashcard_answerCorrect3).setVisibility(View.VISIBLE);
-
-                    answerOn = true;
-                    if(firstQuestion) {
-                        secondQuestion = true;
-                    }
-                    else{
-                        firstQuestion = true;
-                    }
+                else{
+                    firstQuestion = false;
                 }
             }
-        });
-        findViewById(R.id.flashcard_answerWrong1).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
-                if(answerOn) {
-                    findViewById(R.id.flashcard_answer1).setVisibility(View.VISIBLE);
-                    findViewById(R.id.flashcard_answer2).setVisibility(View.VISIBLE);
-                    findViewById(R.id.flashcard_answer3).setVisibility(View.VISIBLE);
+            isShowingAnswers = false;
+        }
+    }
+});
+// Main Question and Answer
+flashQuest.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v){
+        if(!answerOn) {
+            findViewById(R.id.flashcard_anwser).setVisibility(View.VISIBLE);
 
-                    findViewById(R.id.flashcard_answerWrong1).setVisibility(View.INVISIBLE);
-                    findViewById(R.id.flashcard_answerWrong2).setVisibility(View.INVISIBLE);
-                    findViewById(R.id.flashcard_answerCorrect3).setVisibility(View.INVISIBLE);
-                    if(firstQuestion) {
-                        secondQuestion = true;
-                    }
-                    else{
-                        firstQuestion = true;
-                    }
+            flashQuest.setVisibility(View.INVISIBLE);
 
-                    answerOn = true;
-                }
-                else if(!firstQuestion || !secondQuestion){
-                    findViewById(R.id.flashcard_answer1).setVisibility(View.VISIBLE);
-                    findViewById(R.id.flashcard_answer2).setVisibility(View.VISIBLE);
-                    findViewById(R.id.flashcard_answer3).setVisibility(View.VISIBLE);
+            answerOn = true;
 
-                    findViewById(R.id.flashcard_answerWrong1).setVisibility(View.INVISIBLE);
-                    findViewById(R.id.flashcard_answerWrong2).setVisibility(View.INVISIBLE);
-                    findViewById(R.id.flashcard_answerCorrect3).setVisibility(View.INVISIBLE);
-                    if(firstQuestion) {
-                        secondQuestion = true;
-                    }
-                    else{
-                        firstQuestion = true;
-                    }
-                    answerOn = false;
-                }
+        }
+    }
+});
+findViewById(R.id.flashcard_anwser).setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v){
+        if(answerOn) {
+            findViewById(R.id.flashcard_anwser).setVisibility(View.INVISIBLE);
+
+            flashQuest.setVisibility(View.VISIBLE);
+            answerOn = false;
+        }
+    }
+});
+// End main Question and Answer
+// Answer 1 button
+findViewById(R.id.flashcard_answer1).setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v){
+        if(!answerOn) {
+            findViewById(R.id.flashcard_answer1).setVisibility(View.INVISIBLE);
+            findViewById(R.id.flashcard_answer3).setVisibility(View.INVISIBLE);
+
+            findViewById(R.id.flashcard_answerWrong1).setVisibility(View.VISIBLE);
+            findViewById(R.id.flashcard_answerCorrect3).setVisibility(View.VISIBLE);
+            if(!firstQuestion) {
+                secondQuestion = true;
             }
-        });
-        // End Answer 1 button
-        // Answer 2
-        findViewById(R.id.flashcard_answer2).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
-                if(!answerOn) {
-                    findViewById(R.id.flashcard_answer2).setVisibility(View.INVISIBLE);
-                    findViewById(R.id.flashcard_answer3).setVisibility(View.INVISIBLE);
-
-                    findViewById(R.id.flashcard_answerWrong2).setVisibility(View.VISIBLE);
-                    findViewById(R.id.flashcard_answerCorrect3).setVisibility(View.VISIBLE);
-                    answerOn = true;
-                    if(firstQuestion) {
-                        secondQuestion = true;
-                    }
-                    else{
-                        firstQuestion = true;
-                    }
-                }
-                else if(firstQuestion || secondQuestion) {
-                    findViewById(R.id.flashcard_answer2).setVisibility(View.INVISIBLE);
-                    findViewById(R.id.flashcard_answer3).setVisibility(View.INVISIBLE);
-
-                    findViewById(R.id.flashcard_answerWrong2).setVisibility(View.VISIBLE);
-                    findViewById(R.id.flashcard_answerCorrect3).setVisibility(View.VISIBLE);
-                    answerOn = true;
-                    if(firstQuestion) {
-                        secondQuestion = true;
-                    }
-                    else{
-                        firstQuestion = true;
-                    }
-                }
+            else{
+                firstQuestion = true;
             }
-        });
-        findViewById(R.id.flashcard_answerWrong2).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
-                if(answerOn) {
-                    findViewById(R.id.flashcard_answer1).setVisibility(View.VISIBLE);
-                    findViewById(R.id.flashcard_answer2).setVisibility(View.VISIBLE);
-                    findViewById(R.id.flashcard_answer3).setVisibility(View.VISIBLE);
+            answerOn = true;
+        }
+        else if(firstQuestion || secondQuestion) {
+            findViewById(R.id.flashcard_answer1).setVisibility(View.INVISIBLE);
+            findViewById(R.id.flashcard_answer3).setVisibility(View.INVISIBLE);
 
-                    findViewById(R.id.flashcard_answerWrong1).setVisibility(View.INVISIBLE);
-                    findViewById(R.id.flashcard_answerWrong2).setVisibility(View.INVISIBLE);
-                    findViewById(R.id.flashcard_answerCorrect3).setVisibility(View.INVISIBLE);
-                    if(firstQuestion) {
-                        secondQuestion = true;
-                    }
-                    else{
-                        firstQuestion = true;
-                    }
-                    answerOn = true;
-                }
-                else if(!firstQuestion || !secondQuestion){
-                    findViewById(R.id.flashcard_answer1).setVisibility(View.VISIBLE);
-                    findViewById(R.id.flashcard_answer2).setVisibility(View.VISIBLE);
-                    findViewById(R.id.flashcard_answer3).setVisibility(View.VISIBLE);
+            findViewById(R.id.flashcard_answerWrong1).setVisibility(View.VISIBLE);
+            findViewById(R.id.flashcard_answerCorrect3).setVisibility(View.VISIBLE);
 
-                    findViewById(R.id.flashcard_answerWrong1).setVisibility(View.INVISIBLE);
-                    findViewById(R.id.flashcard_answerWrong2).setVisibility(View.INVISIBLE);
-                    findViewById(R.id.flashcard_answerCorrect3).setVisibility(View.INVISIBLE);
-                    if(firstQuestion) {
-                        secondQuestion = true;
-                    }
-                    else{
-                        firstQuestion = true;
-                    }
-                    answerOn = false;
-                }
+            answerOn = true;
+            if(firstQuestion) {
+                secondQuestion = true;
             }
-        });
-        // End Answer 2
-        // Answer 3
-        findViewById(R.id.flashcard_answer3).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
-                if(!answerOn) {
-                    findViewById(R.id.flashcard_answer3).setVisibility(View.INVISIBLE);
-                    findViewById(R.id.flashcard_answerCorrect3).setVisibility(View.VISIBLE);
-                    answerOn = true;
-                    if(firstQuestion) {
-                        secondQuestion = true;
-                    }
-                    else{
-                        firstQuestion = true;
-                    }
-                }
-
+            else{
+                firstQuestion = true;
             }
-        });
-        findViewById(R.id.flashcard_answerCorrect3).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
-                if(answerOn){
-                    findViewById(R.id.flashcard_answer1).setVisibility(View.VISIBLE);
-                    findViewById(R.id.flashcard_answer2).setVisibility(View.VISIBLE);
-                    findViewById(R.id.flashcard_answer3).setVisibility(View.VISIBLE);
+        }
+    }
+});
+findViewById(R.id.flashcard_answerWrong1).setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v){
+        if(answerOn) {
+            findViewById(R.id.flashcard_answer1).setVisibility(View.VISIBLE);
+            findViewById(R.id.flashcard_answer2).setVisibility(View.VISIBLE);
+            findViewById(R.id.flashcard_answer3).setVisibility(View.VISIBLE);
 
-                    findViewById(R.id.flashcard_answerWrong1).setVisibility(View.INVISIBLE);
-                    findViewById(R.id.flashcard_answerWrong2).setVisibility(View.INVISIBLE);
-                    findViewById(R.id.flashcard_answerCorrect3).setVisibility(View.INVISIBLE);
-                    if(firstQuestion) {
-                        secondQuestion = true;
-                    }
-                    else{
-                        firstQuestion = true;
-                    }
-                    answerOn = false;
-                }
+            findViewById(R.id.flashcard_answerWrong1).setVisibility(View.INVISIBLE);
+            findViewById(R.id.flashcard_answerWrong2).setVisibility(View.INVISIBLE);
+            findViewById(R.id.flashcard_answerCorrect3).setVisibility(View.INVISIBLE);
+            if(firstQuestion) {
+                secondQuestion = true;
             }
-        });
-        */
+            else{
+                firstQuestion = true;
+            }
+
+            answerOn = true;
+        }
+        else if(!firstQuestion || !secondQuestion){
+            findViewById(R.id.flashcard_answer1).setVisibility(View.VISIBLE);
+            findViewById(R.id.flashcard_answer2).setVisibility(View.VISIBLE);
+            findViewById(R.id.flashcard_answer3).setVisibility(View.VISIBLE);
+
+            findViewById(R.id.flashcard_answerWrong1).setVisibility(View.INVISIBLE);
+            findViewById(R.id.flashcard_answerWrong2).setVisibility(View.INVISIBLE);
+            findViewById(R.id.flashcard_answerCorrect3).setVisibility(View.INVISIBLE);
+            if(firstQuestion) {
+                secondQuestion = true;
+            }
+            else{
+                firstQuestion = true;
+            }
+            answerOn = false;
+        }
+    }
+});
+// End Answer 1 button
+// Answer 2
+findViewById(R.id.flashcard_answer2).setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v){
+        if(!answerOn) {
+            findViewById(R.id.flashcard_answer2).setVisibility(View.INVISIBLE);
+            findViewById(R.id.flashcard_answer3).setVisibility(View.INVISIBLE);
+
+            findViewById(R.id.flashcard_answerWrong2).setVisibility(View.VISIBLE);
+            findViewById(R.id.flashcard_answerCorrect3).setVisibility(View.VISIBLE);
+            answerOn = true;
+            if(firstQuestion) {
+                secondQuestion = true;
+            }
+            else{
+                firstQuestion = true;
+            }
+        }
+        else if(firstQuestion || secondQuestion) {
+            findViewById(R.id.flashcard_answer2).setVisibility(View.INVISIBLE);
+            findViewById(R.id.flashcard_answer3).setVisibility(View.INVISIBLE);
+
+            findViewById(R.id.flashcard_answerWrong2).setVisibility(View.VISIBLE);
+            findViewById(R.id.flashcard_answerCorrect3).setVisibility(View.VISIBLE);
+            answerOn = true;
+            if(firstQuestion) {
+                secondQuestion = true;
+            }
+            else{
+                firstQuestion = true;
+            }
+        }
+    }
+});
+findViewById(R.id.flashcard_answerWrong2).setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v){
+        if(answerOn) {
+            findViewById(R.id.flashcard_answer1).setVisibility(View.VISIBLE);
+            findViewById(R.id.flashcard_answer2).setVisibility(View.VISIBLE);
+            findViewById(R.id.flashcard_answer3).setVisibility(View.VISIBLE);
+
+            findViewById(R.id.flashcard_answerWrong1).setVisibility(View.INVISIBLE);
+            findViewById(R.id.flashcard_answerWrong2).setVisibility(View.INVISIBLE);
+            findViewById(R.id.flashcard_answerCorrect3).setVisibility(View.INVISIBLE);
+            if(firstQuestion) {
+                secondQuestion = true;
+            }
+            else{
+                firstQuestion = true;
+            }
+            answerOn = true;
+        }
+        else if(!firstQuestion || !secondQuestion){
+            findViewById(R.id.flashcard_answer1).setVisibility(View.VISIBLE);
+            findViewById(R.id.flashcard_answer2).setVisibility(View.VISIBLE);
+            findViewById(R.id.flashcard_answer3).setVisibility(View.VISIBLE);
+
+            findViewById(R.id.flashcard_answerWrong1).setVisibility(View.INVISIBLE);
+            findViewById(R.id.flashcard_answerWrong2).setVisibility(View.INVISIBLE);
+            findViewById(R.id.flashcard_answerCorrect3).setVisibility(View.INVISIBLE);
+            if(firstQuestion) {
+                secondQuestion = true;
+            }
+            else{
+                firstQuestion = true;
+            }
+            answerOn = false;
+        }
+    }
+});
+// End Answer 2
+// Answer 3
+findViewById(R.id.flashcard_answer3).setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v){
+        if(!answerOn) {
+            findViewById(R.id.flashcard_answer3).setVisibility(View.INVISIBLE);
+            findViewById(R.id.flashcard_answerCorrect3).setVisibility(View.VISIBLE);
+            answerOn = true;
+            if(firstQuestion) {
+                secondQuestion = true;
+            }
+            else{
+                firstQuestion = true;
+            }
+        }
+
+    }
+});
+findViewById(R.id.flashcard_answerCorrect3).setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v){
+        if(answerOn){
+            findViewById(R.id.flashcard_answer1).setVisibility(View.VISIBLE);
+            findViewById(R.id.flashcard_answer2).setVisibility(View.VISIBLE);
+            findViewById(R.id.flashcard_answer3).setVisibility(View.VISIBLE);
+
+            findViewById(R.id.flashcard_answerWrong1).setVisibility(View.INVISIBLE);
+            findViewById(R.id.flashcard_answerWrong2).setVisibility(View.INVISIBLE);
+            findViewById(R.id.flashcard_answerCorrect3).setVisibility(View.INVISIBLE);
+            if(firstQuestion) {
+                secondQuestion = true;
+            }
+            else{
+                firstQuestion = true;
+            }
+            answerOn = false;
+        }
+    }
+});
+*/
 // End Answer 3
