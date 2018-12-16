@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener
 {
@@ -20,12 +22,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     boolean secondQuestion = false;
     boolean greenOn = false;
 
+    // Database Variables
+    FlashcardDatabase flashcardDatabase;
+    List<Flashcard> allFlashcards;
+    int currentCardDisplayedIndex = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        // DataBase Variables
+        flashcardDatabase = new FlashcardDatabase(getApplicationContext());
+        allFlashcards = flashcardDatabase.getAllCards();
+
         // Quick Access
         TextView flashQuest = findViewById(R.id.flashcard_question);
         TextView flashAnswer = findViewById(R.id.flashcard_anwser);
@@ -37,6 +47,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         TextView answer3Correct = findViewById(R.id.flashcard_answerCorrect3);
         ImageView toggle = findViewById(R.id.toggle_choices_visibility);
         Button createCardBut = findViewById(R.id.plus_button);
+        Button forwardNextButton = findViewById(R.id.forwardNextButton);
+        Button backNextButton = findViewById(R.id.backNextButton);
         // Set Listeners
         flashQuest.setOnClickListener(this);
         flashAnswer.setOnClickListener(this);
@@ -48,9 +60,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         answer3Correct.setOnClickListener(this);
         toggle.setOnClickListener(this);
         createCardBut.setOnClickListener(this);
+        forwardNextButton.setOnClickListener(this);
+        backNextButton.setOnClickListener(this);
+        // Check dataBase
+        if (allFlashcards != null && allFlashcards.size() > 0) {
+            flashQuest.setText(allFlashcards.get(0).getQuestion());
+            flashAnswer.setText(allFlashcards.get(0).getAnswer());
+            answer1.setText(allFlashcards.get(0).getWrongAnswer1());
+            answer1Wrong.setText(allFlashcards.get(0).getWrongAnswer1());
+            answer2.setText(allFlashcards.get(0).getWrongAnswer2());
+            answer2Wrong.setText(allFlashcards.get(0).getWrongAnswer2());
+            answer3.setText(allFlashcards.get(0).getAnswer());
+            answer3Correct.setText(allFlashcards.get(0).getAnswer());
+        }
     }
 
-    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
 
         TextView mainQuestion = findViewById(R.id.flashcard_question);
         TextView mainAnswer = findViewById(R.id.flashcard_anwser);
@@ -61,11 +87,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         TextView answer2 = findViewById(R.id.flashcard_answer2);
         TextView wrongAnswer2 = findViewById(R.id.flashcard_answerWrong2);
 
-        if(requestCode == 100){
+        if(requestCode == 100)
+        {
             String question = data.getExtras().getString("question");
             String answer = data.getExtras().getString("answer");
             String answerW1 = data.getExtras().getString("answerW1");
             String answerW2 = data.getExtras().getString("answerW2");
+            flashcardDatabase.insertCard(new Flashcard(question, answer));
+            allFlashcards = flashcardDatabase.getAllCards();
 
             mainQuestion.setText(question);
             mainAnswer.setText(answer);
@@ -76,7 +105,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             answer2.setText(answerW2);
             wrongAnswer2.setText(answerW2);
         }
-        else if(requestCode == 99){
+        else if(requestCode == 99)
+        {
             String question = data.getExtras().getString("question");
             String answer = data.getExtras().getString("answer");
             String answerW1 = data.getExtras().getString("answerW1");
@@ -96,7 +126,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     @Override
-    public void onClick(View v) {
+    public void onClick(View v)
+    {
         TextView flashQuest = findViewById(R.id.flashcard_question);
         TextView flashAnswer = findViewById(R.id.flashcard_anwser);
         TextView answer1 = findViewById(R.id.flashcard_answer1);
@@ -107,11 +138,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         TextView answer3Correct = findViewById(R.id.flashcard_answerCorrect3);
         ImageView toggle = findViewById(R.id.toggle_choices_visibility);
         Button createCardBut = findViewById(R.id.plus_button);
+        Button forwardNextButton = findViewById(R.id.forwardNextButton);
+        Button backNextButton = findViewById(R.id.backNextButton);
 
-        switch (v.getId()){
+        switch (v.getId())
+        {
             case R.id.flashcard_question:
             {
-                if(!answerOn) {
+                if(!answerOn)
+                {
                     // Setting reveal Animation
                     // get the center for the clipping circle
                     int cx = flashAnswer.getWidth() / 2;
@@ -137,7 +172,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             break;
             case R.id.flashcard_anwser:
             {
-                if(answerOn){
+                if(answerOn)
+                {
                     // Setting reveal Animation
                     // get the center for the clipping circle
                     int cx = flashQuest.getWidth() / 2;
@@ -163,10 +199,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             break;
             case R.id.flashcard_answer1:
             {
-                if(!firstQuestion){
+                if(!firstQuestion)
+                {
                     answer1.setVisibility(View.INVISIBLE);
                     answer1Wrong.setVisibility(View.VISIBLE);
-                    if(!greenOn) {
+                    if(!greenOn)
+                    {
                         answer3.setVisibility(View.INVISIBLE);
                         answer3Correct.setVisibility(View.VISIBLE);
                         greenOn = true;
@@ -177,10 +215,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             break;
             case R.id.flashcard_answerWrong1:
             {
-                if(firstQuestion){
+                if(firstQuestion)
+                {
                     answer1.setVisibility(View.VISIBLE);
                     answer1Wrong.setVisibility(View.INVISIBLE);
-                    if(greenOn) {
+                    if(greenOn)
+                    {
                         answer2.setVisibility(View.VISIBLE);
                         answer2Wrong.setVisibility(View.INVISIBLE);
                         answer3.setVisibility(View.VISIBLE);
@@ -195,10 +235,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             break;
             case R.id.flashcard_answer2:
             {
-                if(!secondQuestion){
+                if(!secondQuestion)
+                {
                     answer2.setVisibility(View.INVISIBLE);
                     answer2Wrong.setVisibility(View.VISIBLE);
-                    if(!greenOn) {
+                    if(!greenOn)
+                    {
                         answer3.setVisibility(View.INVISIBLE);
                         answer3Correct.setVisibility(View.VISIBLE);
                         greenOn = true;
@@ -209,10 +251,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             break;
             case R.id.flashcard_answerWrong2:
             {
-                if(secondQuestion){
+                if(secondQuestion)
+                {
                     answer2.setVisibility(View.VISIBLE);
                     answer2Wrong.setVisibility(View.INVISIBLE);
-                    if(greenOn) {
+                    if(greenOn)
+                    {
                         answer1.setVisibility(View.VISIBLE);
                         answer1Wrong.setVisibility(View.INVISIBLE);
                         answer3.setVisibility(View.VISIBLE);
@@ -227,7 +271,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             break;
             case R.id.flashcard_answer3:
             {
-                if(!greenOn){
+                if(!greenOn)
+                {
                     answer3.setVisibility(View.INVISIBLE);
                     answer3Correct.setVisibility(View.VISIBLE);
                     greenOn = true;
@@ -236,7 +281,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             break;
             case R.id.flashcard_answerCorrect3:
             {
-                if(greenOn){
+                if(greenOn)
+                {
                     answer1.setVisibility(View.VISIBLE);
                     answer1Wrong.setVisibility(View.INVISIBLE);
                     answer2.setVisibility(View.VISIBLE);
@@ -263,7 +309,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     firstQuestion = true;
                     secondQuestion = true;
                     greenOn = true;
-                }else{
+                }else
+                {
                     answer1.setVisibility(View.VISIBLE);
                     answer1Wrong.setVisibility(View.INVISIBLE);
                     answer2.setVisibility(View.VISIBLE);
@@ -298,10 +345,54 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             }
             break;
+            case R.id.forwardNextButton:
+            {
+                try {
+                    currentCardDisplayedIndex++;
+                    if (currentCardDisplayedIndex > allFlashcards.size() - 1) {
+                        currentCardDisplayedIndex = 0;
+                    }
+                    flashQuest.setText(allFlashcards.get(currentCardDisplayedIndex).getQuestion());
+                    flashAnswer.setText(allFlashcards.get(currentCardDisplayedIndex).getAnswer());
+                    answer1.setText(allFlashcards.get(currentCardDisplayedIndex).getWrongAnswer1());
+                    answer1Wrong.setText(allFlashcards.get(currentCardDisplayedIndex).getWrongAnswer1());
+                    answer2.setText(allFlashcards.get(currentCardDisplayedIndex).getWrongAnswer2());
+                    answer2Wrong.setText(allFlashcards.get(currentCardDisplayedIndex).getWrongAnswer2());
+                    answer3.setText(allFlashcards.get(currentCardDisplayedIndex).getAnswer());
+                    answer3Correct.setText(allFlashcards.get(currentCardDisplayedIndex).getAnswer());
+                }
+                catch(Exception e)
+                {
+                    currentCardDisplayedIndex = currentCardDisplayedIndex;
+                }
+            }
+            break;
+            case R.id.backNextButton: {
+                try {
+                    currentCardDisplayedIndex--;
+                    if (currentCardDisplayedIndex > allFlashcards.size() - 1) {
+                        currentCardDisplayedIndex = 0;
+                    }
+                    flashQuest.setText(allFlashcards.get(currentCardDisplayedIndex).getQuestion());
+                    flashAnswer.setText(allFlashcards.get(currentCardDisplayedIndex).getAnswer());
+                    answer1.setText(allFlashcards.get(currentCardDisplayedIndex).getWrongAnswer1());
+                    answer1Wrong.setText(allFlashcards.get(currentCardDisplayedIndex).getWrongAnswer1());
+                    answer2.setText(allFlashcards.get(currentCardDisplayedIndex).getWrongAnswer2());
+                    answer2Wrong.setText(allFlashcards.get(currentCardDisplayedIndex).getWrongAnswer2());
+                    answer3.setText(allFlashcards.get(currentCardDisplayedIndex).getAnswer());
+                    answer3Correct.setText(allFlashcards.get(currentCardDisplayedIndex).getAnswer());
+                } catch (Exception e)
+                {
+                    currentCardDisplayedIndex = currentCardDisplayedIndex;
+                }
+
+            }
         }
-        if(greenOn){
+        if(greenOn)
+        {
             isShowingAnswers = true;
-        }else{
+        }else
+        {
             isShowingAnswers = false;
             greenOn = false;
         }
