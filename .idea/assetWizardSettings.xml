@@ -5,7 +5,50 @@
       <map>
         <entry key="imageWizard">
           <value>
-            <PersistentState />
+            <PersistentState>
+              <option name="children">
+                <map>
+                  <entry key="imageAssetPanel">
+                    <value>
+                      <PersistentState>
+                        <option name="children">
+                          <map>
+                            <entry key="launcher">
+                              <value>
+                                <PersistentState>
+                                  <option name="children">
+                                    <map>
+                                      <entry key="foregroundImage">
+                                        <value>
+                                          <PersistentState>
+                                            <option name="values">
+                                              <map>
+                                                <entry key="trimmed" value="true" />
+                                              </map>
+                                            </option>
+                                          </PersistentState>
+                                        </value>
+                                      </entry>
+                                    </map>
+                                  </option>
+                                  <option name="values">
+                                    <map>
+                                      <entry key="backgroundAssetType" value="COLOR" />
+                                      <entry key="backgroundColor" value="fdfffb" />
+                                      <entry key="foregroundImage" value="C:\Users\MJBen\OneDrive - College of Southern Nevada\AndroidProjects\Icons\icon-card.png" />
+                                    </map>
+                                  </option>
+                                </PersistentState>
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </PersistentState>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </PersistentState>
           </value>
         </entry>
         <entry key="vectorWizard">
@@ -19,8 +62,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_check_mark" />
-                            <entry key="sourceFile" value="C:\Users\MJBen\OneDrive - College of Southern Nevada\AndroidProjects\Icons\check_mark_Circle.svg" />
+                            <entry key="outputName" value="ic_icon" />
+                            <entry key="sourceFile" value="C:\Users\MJBen\OneDrive - College of Southern Nevada\AndroidProjects\Icons\Icon.svg" />
                           </map>
                         </option>
                       </PersistentState>
