@@ -8,7 +8,7 @@ This addition to the application allows the user to add multilple card and move 
 
 ### App Walk-though
 
-<img src="https://i.imgur.com/vD0BxR1.gif" width=200><br>
+<img src="https://i.imgur.com/lh82ItB.gif" width=200><br>
 
 ## Required
 - [x] User can create a card and still see their created card when the app is relaunched.
