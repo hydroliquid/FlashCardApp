@@ -1,8 +1,12 @@
 package com.hydroliquid.mjben.flashapp;
 
+import android.animation.Animator;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewAnimationUtils;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -32,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         TextView answer3 = findViewById(R.id.flashcard_answer3);
         TextView answer3Correct = findViewById(R.id.flashcard_answerCorrect3);
         ImageView toggle = findViewById(R.id.toggle_choices_visibility);
+        Button createCardBut = findViewById(R.id.plus_button);
         // Set Listeners
         flashQuest.setOnClickListener(this);
         flashAnswer.setOnClickListener(this);
@@ -42,7 +47,53 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         answer3.setOnClickListener(this);
         answer3Correct.setOnClickListener(this);
         toggle.setOnClickListener(this);
+        createCardBut.setOnClickListener(this);
     }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+
+        TextView mainQuestion = findViewById(R.id.flashcard_question);
+        TextView mainAnswer = findViewById(R.id.flashcard_anwser);
+        TextView answer3 = findViewById(R.id.flashcard_answer3);
+        TextView correctAnswer = findViewById(R.id.flashcard_answerCorrect3);
+        TextView answer1 = findViewById(R.id.flashcard_answer1);
+        TextView wrongAnswer1 = findViewById(R.id.flashcard_answerWrong1);
+        TextView answer2 = findViewById(R.id.flashcard_answer2);
+        TextView wrongAnswer2 = findViewById(R.id.flashcard_answerWrong2);
+
+        if(requestCode == 100){
+            String question = data.getExtras().getString("question");
+            String answer = data.getExtras().getString("answer");
+            String answerW1 = data.getExtras().getString("answerW1");
+            String answerW2 = data.getExtras().getString("answerW2");
+
+            mainQuestion.setText(question);
+            mainAnswer.setText(answer);
+            answer3.setText(answer);
+            correctAnswer.setText(answer);
+            answer1.setText(answerW1);
+            wrongAnswer1.setText(answerW1);
+            answer2.setText(answerW2);
+            wrongAnswer2.setText(answerW2);
+        }
+        else if(requestCode == 99){
+            String question = data.getExtras().getString("question");
+            String answer = data.getExtras().getString("answer");
+            String answerW1 = data.getExtras().getString("answerW1");
+            String answerW2 = data.getExtras().getString("answerW2");
+
+            mainQuestion.setText(question);
+            mainAnswer.setText(answer);
+            answer3.setText(answer);
+            correctAnswer.setText(answer);
+            answer1.setText(answerW1);
+            wrongAnswer1.setText(answerW1);
+            answer2.setText(answerW2);
+            wrongAnswer2.setText(answerW2);
+        }
+        overridePendingTransition(R.anim.right_in, R.anim.left_out);
+    }
+
 
     @Override
     public void onClick(View v) {
@@ -55,13 +106,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         TextView answer3 = findViewById(R.id.flashcard_answer3);
         TextView answer3Correct = findViewById(R.id.flashcard_answerCorrect3);
         ImageView toggle = findViewById(R.id.toggle_choices_visibility);
+        Button createCardBut = findViewById(R.id.plus_button);
 
         switch (v.getId()){
             case R.id.flashcard_question:
             {
                 if(!answerOn) {
+                    // Setting reveal Animation
+                    // get the center for the clipping circle
+                    int cx = flashAnswer.getWidth() / 2;
+                    int cy = flashAnswer.getHeight() / 2;
+
+                    // get the final radius for the clipping circle
+                    float finalRadius = (float) Math.hypot(cx, cy);
+
+                    // create the animator for this view (the start radius is zero)
+                    Animator anim = ViewAnimationUtils.createCircularReveal(flashAnswer, cx, cy, 0f, finalRadius);
+
+                    // set visability
                     flashQuest.setVisibility(View.INVISIBLE);
                     flashAnswer.setVisibility(View.VISIBLE);
+
+                    // Call anim
+                    anim.setDuration(3000);
+                    anim.start();
+
                     answerOn = true;
                 }
             }
@@ -69,8 +138,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.flashcard_anwser:
             {
                 if(answerOn){
+                    // Setting reveal Animation
+                    // get the center for the clipping circle
+                    int cx = flashQuest.getWidth() / 2;
+                    int cy = flashQuest.getHeight() / 2;
+
+                    // get the final radius for the clipping circle
+                    float finalRadius = (float) Math.hypot(cx, cy);
+
+                    // create the animator for this view (the start radius is zero)
+                    Animator anim2 = ViewAnimationUtils.createCircularReveal(flashQuest, cx, cy, 0f, finalRadius);
+
+                    // set visability
                     flashQuest.setVisibility(View.VISIBLE);
                     flashAnswer.setVisibility(View.INVISIBLE);
+
+                    // Call anim
+                    anim2.setDuration(3000);
+                    anim2.start();
+
                     answerOn = false;
                 }
             }
@@ -191,6 +277,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
             break;
+            case R.id.plus_button:
+            {
+                Intent CreateCard = new Intent(MainActivity.this,
+                        CreateCardActivity.class);
+                //overridePendingTransition(R.anim.right_in, R.anim.left_in);
+                MainActivity.this.startActivityForResult(CreateCard, 100);
+                overridePendingTransition(R.anim.right_in, R.anim.left_out);
+            }
+            break;
+            case R.id.edit_button:
+            {
+                Intent EditCard = new Intent(MainActivity.this,
+                        CreateCardActivity.class);
+                //Intent flashQuest1 = EditCard.putExtra("flashQuest",
+                //        flashQuest.getText().toString());
+                EditCard.putExtra("question", flashQuest.getText().toString());
+                overridePendingTransition(R.anim.right_in, R.anim.left_out);
+                MainActivity.this.startActivityForResult(EditCard, 99);
+
+            }
+            break;
         }
         if(greenOn){
             isShowingAnswers = true;
@@ -198,8 +305,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             isShowingAnswers = false;
             greenOn = false;
         }
-    }
 
+    }
 }
 // Old code
 /*
