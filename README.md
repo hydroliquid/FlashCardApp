@@ -1,6 +1,23 @@
 # FlashCardApp
-📝 `NOTE` Paste this template at the top of your existing `README.md` file from the last lab.
 
+## Lab 4
+
+### App Description
+This addition has a new look. And aditional animation between screens.
+
+### App Walk-though
+<img src="https://i.imgur.com/CjlTpFZ.gif" width=200><br>
+
+## Required
+- [x] User sees a transition animation when going from the main screen to the add card screen.
+- [x] User sees a reveal animation when the flashcard is tapped and the answer is shown
+- [x] User sees flashcards animating in / out when the 'next' button is tapped
+
+## Optional
+- [x] Extra styling is added!
+- [ ] User sees a countdown timer for each question
+- [ ] User sees a 'card flip' animation when the card is tapped
+- [ ] User sees a celebration animation with confetti when they answer a question correctly
 ## Lab 3
 
 ### App Description
@@ -15,10 +32,10 @@ This addition to the application allows the user to add multilple card and move 
 - [x] User can create muliple cards and browse through all created cards
 
 ## Optional
-- [ ] User can delete a card and no longer see it in their deck anymore
+- [x] User can delete a card and no longer see it in their deck anymore
 - [ ] Flashcards are shown in random order instead of the order they were created in
-- [ ] User can edit a card and see the edit saved when they browse through their deck of cards
-- [ ] User can create flashcards with multiple answers and be able to browse through cards with multiple choice answers shown
+- [x] User can edit a card and see the edit saved when they browse through their deck of cards
+- [x] User can create flashcards with multiple answers and be able to browse through cards with multiple choice answers shown
 
 
 ## Lab 2
@@ -37,7 +54,7 @@ This portion of the app is to allow a user to change the current question and ea
 - [x] Push your progress to GitHub!
 
 ## Optional
-- [ ] User can edit a card
+- [x] User can edit a card
 - [ ] An error message is shown if the user doesn't enter both a Question and an Answer
 - [ ] A notification is shown if the card was created successfully
 - [x] User can also enter multiple choice answers when creating a card
