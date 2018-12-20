@@ -48,6 +48,7 @@ public class CreateCardActivity extends AppCompatActivity implements View.OnClic
             }
             case R.id.save_mark:
             {
+
                 //Intent SaveCard = new Intent(CreateCardActivity.this,
                 //        MainActivity.class);
                 Intent data = new Intent();
