@@ -62,8 +62,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_right_arrow" />
-                            <entry key="sourceFile" value="C:\Users\MJBen\OneDrive - College of Southern Nevada\AndroidProjects\Icons\right-arrow.svg" />
+                            <entry key="outputName" value="ic_trash_can" />
+                            <entry key="sourceFile" value="C:\Users\MJBen\OneDrive - College of Southern Nevada\AndroidProjects\Icons\trash-can.svg" />
                           </map>
                         </option>
                       </PersistentState>
